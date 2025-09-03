@@ -5,7 +5,7 @@ FROM openjdk:17-jdk-slim
 WORKDIR /app
 
 # Copy the built JAR file (adjust the path and name)
-COPY build/libs/project1.jar project1.jar
+COPY build/libs/hy.jar hy.jar
 
 # Set command to run the JAR
-ENTRYPOINT ["java", "-jar", "project1.jar"]
+ENTRYPOINT ["java", "-jar", "hy.jar"]
