@@ -5,7 +5,7 @@ FROM openjdk:17-jdk-slim
 WORKDIR /app
 
 # Copy the built JAR file (adjust the path and name)
-COPY build/libs/tms.jar tms.jar
+COPY build/libs/project1.jar project1.jar
 
 # Set command to run the JAR
-ENTRYPOINT ["java", "-jar", "tms.jar"]
+ENTRYPOINT ["java", "-jar", "project1.jar"]

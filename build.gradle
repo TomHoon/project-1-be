@@ -5,8 +5,7 @@ plugins {
 }
 
 group = 'com.project1'
-version = '0.0.1-SNAPSHOT'
-description = 'Demo project for Spring Boot'
+version = ''
 
 java {
 	toolchain {
