@@ -1,6 +1,7 @@
 package com.project1.hy.controller;
 
 import com.project1.hy.dto.MemberDTO;
+import com.project1.hy.exceptions.MemberException;
 import com.project1.hy.service.MemberService;
 import com.project1.hy.utils.ApiResponse;
 import org.springframework.http.ResponseEntity;
@@ -17,18 +18,22 @@ public class MemberController {
 
     // 가입
     @PostMapping("/join")
-    public ResponseEntity<ApiResponse<MemberDTO>> join(@RequestBody MemberDTO dto)  {
-        if (dto.getMemberId().isEmpty()) return ResponseEntity.ok(ApiResponse.error("아이디가 없습니다"));
-        if (dto.getPassword().isEmpty()) return ResponseEntity.ok(ApiResponse.error("비밀번호가 없습니다"));
+    public MemberDTO join(@RequestBody MemberDTO dto)  {
+        if (dto.getMemberId().isEmpty())
+            throw MemberException.NOT_FOUND.getException();
+        if (dto.getPassword().isEmpty())
+            throw MemberException.EMPTY_PASSWORD.getException();
 
         return memberService.join(dto);
     }
 
     // 로그인
     @PostMapping("/login")
-    public ResponseEntity<ApiResponse<MemberDTO>> login(@RequestBody MemberDTO dto) {
-        if (dto.getMemberId().isEmpty()) return ResponseEntity.ok(ApiResponse.error("아이디가 없습니다"));
-        if (dto.getPassword().isEmpty()) return ResponseEntity.ok(ApiResponse.error("비밀번호가 없습니다"));
+    public MemberDTO login(@RequestBody MemberDTO dto) {
+        if (dto.getMemberId().isEmpty())
+            throw MemberException.NOT_EXIST_MEMBER.getException();
+        if (dto.getPassword().isEmpty())
+            throw MemberException.EMPTY_PASSWORD.getException();
 
         return memberService.login(dto);
     }

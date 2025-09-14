@@ -7,8 +7,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.lang.reflect.Member;
-
 @Entity
 @Getter
 @Builder
@@ -30,7 +28,10 @@ public class MemberEntity {
  private Boolean isApproved;
 
  public MemberDTO toDTO() {
-  return new MemberDTO(this);
+   return MemberDTO.builder()
+       .memberId(this.memberId)
+       .isAdult(this.isAdult)
+        .build();
  }
 
 }

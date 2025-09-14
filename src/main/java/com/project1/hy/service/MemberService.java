@@ -2,6 +2,7 @@ package com.project1.hy.service;
 
 import com.project1.hy.dto.MemberDTO;
 import com.project1.hy.entity.MemberEntity;
+import com.project1.hy.exceptions.MemberException;
 import com.project1.hy.repository.MemberRepository;
 import com.project1.hy.utils.ApiResponse;
 import lombok.RequiredArgsConstructor;
@@ -18,28 +19,28 @@ public class MemberService {
     private final MemberRepository memberRepository;
 
     // 가입
-    public ResponseEntity<ApiResponse<MemberDTO>> join(MemberDTO dto) {
+    public MemberDTO join(MemberDTO dto) {
 
         Optional<MemberEntity> res = memberRepository.findByMemberId(dto.getMemberId());
         if (res.isPresent()) {
-            return ResponseEntity.ok(ApiResponse.error("이미 존재하는아이디"));
+            throw MemberException.ALREADY_EXIST.getException();
         }
 
         MemberEntity e = dto.toEntity();
         MemberEntity resEntity = memberRepository.save(e);
 
-        return ResponseEntity.ok(ApiResponse.success(resEntity.toDTO()));
+        return resEntity.toDTO();
     }
 
     // 로그인
-    public ResponseEntity<ApiResponse<MemberDTO>> login(MemberDTO dto) {
+    public MemberDTO login(MemberDTO dto) {
         MemberEntity e = memberRepository.findByMemberId(dto.getMemberId()).orElseThrow();
         String pw = e.getPassword();
 
         if (!pw.equals(dto.getPassword())) {
-            return ResponseEntity.ok(ApiResponse.error("비밀번호가 맞지 않습니다"));
+            throw MemberException.WRONG_PASSWORD.getException();
         }
 
-        return ResponseEntity.ok(ApiResponse.success(e.toDTO()));
+        return e.toDTO();
     }
 }

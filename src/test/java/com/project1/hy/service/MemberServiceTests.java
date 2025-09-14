@@ -42,13 +42,5 @@ public class MemberServiceTests {
                 .password("1234")
                 .build();
 
-        ResponseEntity<ApiResponse<MemberDTO>> res = memberService.login(dto);
-        ApiResponse<MemberDTO> res2 = res.getBody();
-        MemberDTO resDTO = res2.getData();
-
-
-
-
-        log.info("obj >>> {}", resDTO);
     }
 }
