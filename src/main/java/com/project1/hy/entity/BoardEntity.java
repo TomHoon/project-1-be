@@ -42,8 +42,7 @@ public class BoardEntity {
 
   @ElementCollection
   @CollectionTable(
-    name = "tbl_board_images",
-    joinColumns = @JoinColumn(name = "bno")
+    name = "tbl_board_images"
   )
   @Column(name = "image_url")
   private List<String> imageUrls = new ArrayList<>();
