@@ -27,7 +27,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name="tbl_board")
+@Table(name = "tbl_board")
 public class BoardEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,8 +41,8 @@ public class BoardEntity {
   private MemberEntity memberEntity;
 
   @ElementCollection
-  @CollectionTable(
-    name = "tbl_board_images"
+  @CollectionTable(name = "tbl_board_images", joinColumns = @JoinColumn(name = "bno") // not board_entity_bno
+
   )
   @Column(name = "image_url")
   private List<String> imageUrls = new ArrayList<>();
@@ -55,6 +55,5 @@ public class BoardEntity {
         .imageUrls(this.imageUrls)
         .build();
   }
-  
 
 }

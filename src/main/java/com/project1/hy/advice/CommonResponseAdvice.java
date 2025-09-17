@@ -13,7 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project1.hy.utils.ApiResponse;
 
 @RestControllerAdvice
-public class CommonResponseAdvice implements ResponseBodyAdvice<Object>{
+public class CommonResponseAdvice implements ResponseBodyAdvice<Object> {
 
   @Override
   public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
@@ -29,7 +29,7 @@ public class CommonResponseAdvice implements ResponseBodyAdvice<Object>{
     if (body instanceof ApiResponse) {
       return body;
     }
-    
+
     if (body instanceof String) {
 
       try {
@@ -40,7 +40,7 @@ public class CommonResponseAdvice implements ResponseBodyAdvice<Object>{
 
     }
 
-    return ApiResponse.success(body);
+    return ApiResponse.error(body);
   }
-  
+
 }

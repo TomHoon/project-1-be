@@ -1,4 +1,4 @@
-	package com.project1.hy;
+package com.project1.hy;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

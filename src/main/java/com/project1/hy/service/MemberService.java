@@ -4,10 +4,7 @@ import com.project1.hy.dto.MemberDTO;
 import com.project1.hy.entity.MemberEntity;
 import com.project1.hy.exceptions.MemberException;
 import com.project1.hy.repository.MemberRepository;
-import com.project1.hy.utils.ApiResponse;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.Response;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -34,7 +31,8 @@ public class MemberService {
 
     // 로그인
     public MemberDTO login(MemberDTO dto) {
-        MemberEntity e = memberRepository.findByMemberId(dto.getMemberId()).orElseThrow();
+        MemberEntity e = memberRepository.findByMemberId(dto.getMemberId())
+                .orElseThrow(() -> MemberException.NOT_EXIST_MEMBER.getException());
         String pw = e.getPassword();
 
         if (!pw.equals(dto.getPassword())) {

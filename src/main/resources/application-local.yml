@@ -9,9 +9,9 @@ spring:
 
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://localhost:13333/project1
+    url: jdbc:mariadb://192.168.0.10:33306/project1
     username: root
-    password: 1234
+    password: 2846
     hikari: # DB Pool Size
       minimum-idle: 2
       maximum-pool-size: 5

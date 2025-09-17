@@ -13,7 +13,7 @@ import lombok.extern.log4j.Log4j2;
 @RestControllerAdvice
 @Log4j2
 public class MemberControllerAdvice {
-  
+
   @ExceptionHandler(MemberExceptionTemplate.class)
   public ResponseEntity<Map<String, Object>> handlerMemberException(MemberExceptionTemplate t) {
     String message = t.getMessage();

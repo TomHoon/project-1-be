@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -37,15 +36,14 @@ public class BoardController {
   // ✅ 글등록
   @PostMapping("/addBoard")
   public BoardDTO addBoard(
-    @RequestPart("title") String title,
-    @RequestPart("content") String content,
-    @RequestPart("author") String author,
-    @RequestPart(value = "file", required = false) MultipartFile file
-  ) {
+      @RequestParam("title") String title,
+      @RequestParam("content") String content,
+      @RequestParam("author") String author,
+      @RequestParam(value = "file", required = false) MultipartFile file) {
 
     List<String> imageList = new ArrayList<String>();
 
-    if (!file.isEmpty()) {
+    if (file != null && !file.isEmpty()) {
       String filename = com.project1.hy.utils.FileUtil.saveFile(file);
       imageList.add(filename);
     }
@@ -59,7 +57,7 @@ public class BoardController {
 
     return boardService.addBoard(dto);
   }
-  
+
   // ✅ 글삭제
   @DeleteMapping("/deleteBoard/{bno}")
   public Boolean deleteBoard(@PathVariable(name = "bno") Long bno) {
@@ -71,7 +69,7 @@ public class BoardController {
 
     return true;
   }
-  
+
   // ✅ 글수정
   @PutMapping("/modify")
   public BoardDTO modifyBoard(@RequestBody BoardDTO dto) {
@@ -79,4 +77,9 @@ public class BoardController {
     // return resDTO;
     return null;
   }
+
+  // @GetMapping("/detail/{bno}")
+  // public BoardDTO getDetail(@PathVariable Long bno) {
+  // return boardService.getDetail(bno);
+  // }
 }

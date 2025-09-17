@@ -3,8 +3,6 @@ package com.project1.hy.controller;
 import com.project1.hy.dto.MemberDTO;
 import com.project1.hy.exceptions.MemberException;
 import com.project1.hy.service.MemberService;
-import com.project1.hy.utils.ApiResponse;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import lombok.RequiredArgsConstructor;
@@ -18,7 +16,7 @@ public class MemberController {
 
     // 가입
     @PostMapping("/join")
-    public MemberDTO join(@RequestBody MemberDTO dto)  {
+    public MemberDTO join(@RequestBody MemberDTO dto) {
         if (dto.getMemberId().isEmpty())
             throw MemberException.NOT_FOUND.getException();
         if (dto.getPassword().isEmpty())
@@ -37,6 +35,5 @@ public class MemberController {
 
         return memberService.login(dto);
     }
-
 
 }

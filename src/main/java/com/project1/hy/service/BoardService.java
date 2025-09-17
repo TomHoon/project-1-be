@@ -21,7 +21,6 @@ public class BoardService {
   private final BoardRepository boardRepository;
   private final MemberRepository memberRepository;
 
-
   public List<BoardDTO> getBoards(int pageNum) {
     PageRequest pageable = PageRequest.of(pageNum, 10);
 
@@ -36,7 +35,7 @@ public class BoardService {
   public BoardDTO addBoard(BoardDTO dto) {
     String author = dto.getAuthor();
     MemberEntity mEntity = memberRepository.findByMemberId(author).orElseThrow();
-    
+
     BoardEntity bEntity = dto.toEntity(mEntity);
 
     return boardRepository.save(bEntity).toDTO();
@@ -51,9 +50,5 @@ public class BoardService {
 
     return true;
   }
-
-  // public BoardDTO modifyDTO(BoardDTO dto) {
-    
-  // }
 
 }
