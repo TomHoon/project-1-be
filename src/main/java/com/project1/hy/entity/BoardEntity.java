@@ -15,7 +15,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -41,9 +40,7 @@ public class BoardEntity {
   private MemberEntity memberEntity;
 
   @ElementCollection
-  @CollectionTable(name = "tbl_board_images", joinColumns = @JoinColumn(name = "bno") // not board_entity_bno
-
-  )
+  @CollectionTable(name = "tbl_board_images", joinColumns = @JoinColumn(name = "bno"))
   @Column(name = "image_url")
   private List<String> imageUrls = new ArrayList<>();
 

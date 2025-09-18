@@ -40,7 +40,7 @@ public class CommonResponseAdvice implements ResponseBodyAdvice<Object> {
 
     }
 
-    return ApiResponse.error(body);
+    return ApiResponse.success(body);
   }
 
 }

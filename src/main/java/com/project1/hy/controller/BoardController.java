@@ -78,8 +78,8 @@ public class BoardController {
     return null;
   }
 
-  // @GetMapping("/detail/{bno}")
-  // public BoardDTO getDetail(@PathVariable Long bno) {
-  // return boardService.getDetail(bno);
-  // }
+  @GetMapping("/detail/{bno}")
+  public BoardDTO getDetail(@PathVariable Long bno) {
+    return boardService.getDetail(bno);
+  }
 }

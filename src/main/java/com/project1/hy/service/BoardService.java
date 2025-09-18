@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.project1.hy.dto.BoardDTO;
 import com.project1.hy.entity.BoardEntity;
 import com.project1.hy.entity.MemberEntity;
+import com.project1.hy.exceptions.BoardException;
+import com.project1.hy.exceptions.MemberException;
 import com.project1.hy.repository.BoardRepository;
 import com.project1.hy.repository.MemberRepository;
 
@@ -29,12 +31,12 @@ public class BoardService {
         .stream()
         .map(e -> new BoardDTO(e))
         .toList();
-  }
+  } 
 
   @Transactional
   public BoardDTO addBoard(BoardDTO dto) {
     String author = dto.getAuthor();
-    MemberEntity mEntity = memberRepository.findByMemberId(author).orElseThrow();
+    MemberEntity mEntity = memberRepository.findByMemberId(author).orElseThrow(() -> MemberException.NOT_EXIST_MEMBER.getException());
 
     BoardEntity bEntity = dto.toEntity(mEntity);
 
@@ -49,6 +51,11 @@ public class BoardService {
     }
 
     return true;
+  }
+
+  public BoardDTO getDetail(Long bno) {
+    BoardEntity entity = boardRepository.findById(bno).orElseThrow(() -> BoardException.NO_BOARD.getException());
+    return entity.toDTO();
   }
 
 }
